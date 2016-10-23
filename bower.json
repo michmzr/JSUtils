@@ -1,5 +1,6 @@
 {
   "name": "jsutils",
+  "version": "1.0.0",
   "description": "Js Utils based on JQuery for web production",
   "main": "index.js",
   "authors": [
