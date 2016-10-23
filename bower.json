@@ -1,0 +1,22 @@
+{
+  "name": "jsutils",
+  "description": "Js Utils based on JQuery for web production",
+  "main": "index.js",
+  "authors": [
+    "Michal Mazur"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "js",
+    "utils",
+    "michmzr"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
