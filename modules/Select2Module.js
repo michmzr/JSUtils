@@ -4,8 +4,9 @@
  * @version 1.0
  *
  * @todo docs
- * @todo uprości mechizm inicjacji
- * @todo ładowanie danych powinno być oznaczane ikoną, blokowaniem selecta
+ * @todo simplificate initiation procedure
+ * @todo loading icon
+ * @todo feature: one select2 depends from value of other
  */
 var Select2Module = {
 
@@ -15,7 +16,7 @@ var Select2Module = {
 	 * @parametr ajxConfig {url: null, extraParams:  {}}
 	 */
 	defaults: {
-		placeholder: 'Wybierz wartość',
+		placeholder: 'Choice value',
 		minimumResultsForSearch: null,
 		ajaxConfig: {url: null, extraParams: {}},
 		allowClear: true
