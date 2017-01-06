@@ -57,3 +57,5 @@ Session.vim
 tags
 .idea/
 package.json
+/bower_components/
+bower_components/
