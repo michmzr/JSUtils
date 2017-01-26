@@ -8,149 +8,146 @@
  * @todo loading icon
  * @todo feature: one select2 depends from value of other
  */
-var Select2Module = {
+const Select2Module = {
 
-	 /**
-	  * Default configuration for Select2
-	  *
-	 * @parametr ajxConfig {url: null, extraParams:  {}}
-	 */
-	defaults: {
-		placeholder: 'Choice value',
-		minimumResultsForSearch: null,
-		ajaxConfig: {url: null, extraParams: {}},
-		allowClear: true
-	},
+    /**
+     * Default configuration for Select2
+     *
+     * @parametr ajxConfig {url: null, extraParams:  {}}
+     */
+    defaults: {
+        placeholder: 'Choice value',
+        minimumResultsForSearch: null,
+        ajaxConfig: {url: null, extraParams: {}},
+        allowClear: true
+    },
 
-	init: function (elem, options)
-	{
-		// console.info("Init Select2Module for element" + jqueryElemToString(elem));
-		var initOptions = {};
+    init: function (elem, options)
+    {
+        // console.info("Init Select2Module for element" + jqueryElemToString(elem));
+        let initOptions = {};
 
-		$.extend(initOptions, this.defaults, options);
+        $.extend(initOptions, this.defaults, options);
 
-		if (initOptions.escapeMarkup == false)
-		{
-			initOptions.escapeMarkup = function(m){
-				return m;
-			}
-		}else
-		{
-			delete initOptions.escapeMarkup;
-		}
+        if (initOptions.escapeMarkup == false)
+        {
+            initOptions.escapeMarkup = function (m)
+            {
+                return m;
+            }
+        } else
+        {
+            delete initOptions.escapeMarkup;
+        }
 
-		//---- Select placeholder ----
-		var placeholder = initOptions.placeholder;
-		// console.debug("Element placeholder: " + placeholder);
+        //---- Select placeholder ----
+        let placeholder = initOptions.placeholder;
+        // console.debug("Element placeholder: " + placeholder);
 
-		if ((initOptions.data == undefined) && (initOptions.ajaxConfig && initOptions.ajaxConfig.url  && initOptions.ajaxConfig.url.length > 0))
-		{
-			// console.info("Init ajax config in Select2Module");
-			var ajaxConfig = {
-				url: initOptions.ajaxConfig.url,
-				dataType: 'json',
-				cache: true,
-				data: function (args)
-				{
-					var res = {
-						search: args.term || args
-					};
+        if ((initOptions.data == undefined) && (initOptions.ajaxConfig && initOptions.ajaxConfig.url && initOptions.ajaxConfig.url.length > 0))
+        {
+            // console.info("Init ajax config in Select2Module");
+            let ajaxConfig = {
+                url: initOptions.ajaxConfig.url,
+                dataType: 'json',
+                cache: true,
+                data: function (args)
+                {
+                    let res = {
+                        search: args.term || args
+                    };
 
-					if (initOptions.ajaxConfig && initOptions.ajaxConfig.extraParams)
-					{
-						$.each(initOptions.ajaxConfig.extraParams, function (index, value)
-						{
-							res[index] = value;
-						});
-					}
+                    if (initOptions.ajaxConfig && initOptions.ajaxConfig.extraParams)
+                    {
+                        $.each(initOptions.ajaxConfig.extraParams, function (index, value)
+                        {
+                            res[index] = value;
+                        });
+                    }
 
-					return res;
-				},
-				results: function (data)
-				{
-					return {results: data};
-				}
-			};
+                    return res;
+                },
+                results: function (data)
+                {
+                    return {results: data};
+                }
+            };
 
-			if (initOptions.ajax)
-				$.extend(initOptions.ajax, initOptions.ajax, ajaxConfig);
-			else
-				initOptions.ajax = ajaxConfig;
+            if (initOptions.ajax)
+                $.extend(initOptions.ajax, initOptions.ajax, ajaxConfig);
+            else
+                initOptions.ajax = ajaxConfig;
 
-			var initValue = initOptions.hasOwnProperty('value') && initOptions.value ? initOptions.value : $(elem).val();
-			
-			//Set initValue
-			if (initValue)
-			{
-				//Select2 initialization
-				var ajaxDataParams = {value: initValue};
+            let initValue = initOptions.hasOwnProperty('value') && initOptions.value ? initOptions.value : $(elem).val();
 
-				if (initOptions.ajaxConfig && initOptions.ajaxConfig.extraParams)
-				{
-					$.each(initOptions.ajaxConfig.extraParams, function (index, value)
-					{
-						ajaxDataParams[index] = value;
-					});
-				}
+            //Set initValue
+            if (initValue)
+            {
+                //Select2 initialization
+                let ajaxDataParams = {value: initValue};
 
-				$.ajax({
-					url: initOptions.ajaxConfig.url,
-					type: "POST",
-					data: ajaxDataParams,
-					dataType: 'json'
-				}).done(function (data)
-				{
-					initOptions.data = data.results.length > 0 ? data.results : [];
+                if (initOptions.ajaxConfig && initOptions.ajaxConfig.extraParams)
+                {
+                    $.each(initOptions.ajaxConfig.extraParams, function (index, value)
+                    {
+                        ajaxDataParams[index] = value;
+                    });
+                }
 
-					if (data.results.length > 0)
-					{
-						var selIds = [];
+                $.ajax({
+                    url: initOptions.ajaxConfig.url,
+                    type: "POST",
+                    data: ajaxDataParams,
+                    dataType: 'json'
+                }).success(function (data)
+                {
+                    initOptions.data = data.results.length > 0 ? data.results : [];
 
-						$.each(data.results, function (index, optionData)
-						{
-							selIds.push(optionData['id']);
+                    if (data.results.length > 0)
+                    {
+                        let selIds = [];
 
-							$(elem).append($('<option>', {
-								value: optionData['id'],
-								text: optionData['text']
-							}));
-						});
+                        $.each(data.results, function (index, optionData)
+                        {
+                            selIds.push(optionData['id']);
 
-						$(elem).val(selIds);
-					}
+                            $(elem).append($('<option>', {
+                                value: optionData['id'],
+                                text: optionData['text']
+                            }));
+                        });
 
-					$(elem).select2(initOptions).trigger("change");
-				}).error(function (jqXHR, textStatus, errorThrown)
-					{
-						console.log(errorThrown);
-						errorThrown.preventDefault();
+                        $(elem).val(selIds);
+                    }
 
-						return false;
-					}
-				);
-			}else
-			{
-				//Select2Initialization
-				// console.info("Asynchrous select2");
-				// console.debug(initOptions);
+                    $(elem).select2(initOptions).trigger("change");
+                }).error(function (jqXHR, textStatus, errorThrown)
+                    {
+                        console.log(errorThrown);
+                        errorThrown.preventDefault();
 
-				$(elem).select2(initOptions);
-			}
-		} else
-		{
-			// console.info("Classic select2");
-			// console.debug(initOptions);
+                        return false;
+                    }
+                );
+            } else
+            {
+                //Select2Initialization
+                // console.info("Asynchrous select2");
+                // console.debug(initOptions);
 
-			$(elem).append($('<option>', {
-				value: null,
-				text: ""
-			}));
+                $(elem).select2(initOptions);
+            }
+        } else
+        {
+            // console.info("Classic select2");
+            // console.debug(initOptions);
 
-			$(elem).select2(initOptions);
-		}
-	},
-	destroy: function ()
-	{
-		//todo
-	}
+            $(elem).append($('<option>', {
+                value: null,
+                text: ""
+            }));
+
+            $(elem).select2(initOptions);
+        }
+    }
 };

@@ -104,7 +104,7 @@
                     {
                         let toastrNotifs = opersData.toastr;
 
-                        console.debug(toastrNotifs);
+                        // console.debug(toastrNotifs);
 
                         let notifs = {};
 

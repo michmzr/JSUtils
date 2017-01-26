@@ -24,7 +24,7 @@ const ToastrNotifsDisplayModule = (function ()
         toastr.options.timeOut = 0; // How long the toast will display without user interaction
         toastr.options.extendedTimeOut = 0; // How long the toast will display after a user hovers over it
 
-        console.debug(config);
+        // console.debug(config);
 
         let alerts = config.alerts;
 
