@@ -1,12 +1,10 @@
 /*
  * Copyright (c) 2017. All rights reserved.
  * Author: Michał Mazur <michmzr@gmail.com>
- *
- * Asynchrous page control using json received from Ajax response
  */
 (function ($)
 {
-    let onAjaxSuccess = function (event, xhr, settings)
+    let onAjaxComplete = function (event, xhr, settings)
     {
         const ASYNC_CMD_NAME = "asyncControl";
 
@@ -20,7 +18,7 @@
                 {
                     let opersData = retData;
 
-                    console.debug("Answered " + ASYNC_CMD_NAME + " from " + settings.url);
+                    // console.debug("Answered " + ASYNC_CMD_NAME + " from " + settings.url);
 
                     $.each(opersData.asyncControl, function (key, keyData)
                     {
@@ -104,7 +102,6 @@
                     {
                         let toastrNotifs = opersData.toastr;
 
-                        // console.debug(toastrNotifs);
 
                         let notifs = {};
 
@@ -127,6 +124,6 @@
         }
     };
 
-    $(window).ajaxSuccess(onAjaxSuccess);
+    $(window).ajaxComplete(onAjaxComplete);
 })(jQuery);
 

@@ -1,8 +1,6 @@
 /*
- * Copyright (c) 2016. All rights reserved.
- *  Licensed under MIT (https://github.com/tabalinas/jsgrid/blob/master/LICENSE)
- *
- * @author: Michal Mazur <michmzr@gmail.com>
+ * Copyright (c) 2017. All rights reserved.
+ * Author: Michał Mazur <michmzr@gmail.com>
  */
 
 /**
@@ -10,6 +8,8 @@
  */
 const ToastrNotifsDisplayModule = (function ()
 {
+    "use strict";
+
     let plugin = {}, config = {};
 
     /**
@@ -22,36 +22,49 @@ const ToastrNotifsDisplayModule = (function ()
     {
         toastr.options.escapeHtml = true;
         toastr.options.timeOut = 0; // How long the toast will display without user interaction
-        toastr.options.extendedTimeOut = 0; // How long the toast will display after a user hovers over it
+        toastr.options.extendedTimeOut = 3000; // How long the toast will display after a user hovers over it
 
-        // console.debug(config);
+        const alerts = config.alerts;
 
-        let alerts = config.alerts;
+        const success = alerts.hasOwnProperty('success') ?  alerts.success : null;
+        const error = alerts.hasOwnProperty('error') ?  alerts.error : null;
+        const warning = alerts.hasOwnProperty('warning') ? alerts.warning : null;
+        const info =  alerts.hasOwnProperty('info') ? alerts.info : null;
 
         //Success
-        for (let msg of alerts.success)
+        if (success)
         {
-            // console.debug("success: " +msg);
-
-            plugin.success(msg);
+            success.forEach(function (msg)
+            {
+                plugin.success(msg);
+            });
         }
 
         //Error
-        for (let msg of alerts.error)
+        if (error)
         {
-            plugin.error(msg);
+            error.forEach(function (msg)
+            {
+                plugin.error(msg);
+            });
         }
 
         //Warning
-        for (let msg of alerts.warning)
+        if (warning)
         {
-            plugin.warning(msg);
+            warning.forEach(function (msg)
+            {
+                plugin.warning(msg);
+            });
         }
 
         //Info
-        for (let msg of alerts.info)
+        if (info)
         {
-            plugin.info(msg);
+            info.forEach(function (msg)
+            {
+                plugin.info(msg);
+            });
         }
     };
 
