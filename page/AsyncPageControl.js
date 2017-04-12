@@ -18,7 +18,7 @@
 				{
 					let opersData = retData;
 
-					console.debug("Answered " + ASYNC_CMD_NAME + " from " + xhr._url);
+					// console.debug("Answered " + ASYNC_CMD_NAME + " from " + xhr._url);
 
 					$.each(opersData.asyncControl, function (key, keyData)
 					{

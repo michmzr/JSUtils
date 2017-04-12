@@ -34,7 +34,7 @@
         this.element = $(element);
         this.options = $.extend({}, $.fn[pluginName].defaults, options);
 
-        if (typeof this.options.target == 'undefined')
+        if (typeof this.options.target === 'undefined')
             this.target = $(element);
         else
             this.target = $(this.options.target);
