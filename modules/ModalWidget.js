@@ -1,9 +1,7 @@
 (function ($, window, document, undefined) {
-
     //"use strict";
 
-    var pluginName = 'modalWidget';
-
+	let pluginName = 'modalWidget';
 
     function Plugin(element, options) {
         /**
@@ -21,7 +19,7 @@
 
     Plugin.prototype = {
         init: function () {
-            var self = this;
+	        let self = this;
 
             if (self.initialized) return;
 
@@ -41,13 +39,13 @@
         },
 
         _initDataArguments: function () {
-            var self = this;
+	        let self = this;
 
             self.element.data('boxType', pluginName);
         },
 
         _load: function () {
-            var self = this,
+	        let self = this,
                 modal = this.modal;
 
             modal.modal({
@@ -88,7 +86,7 @@
         },
 
         _initHideButton: function(){
-            var self  = this,
+	        let self = this,
                 modal = this.modal;
 
             modal.find('[data-modal-widget-close]').click(function(event){
@@ -103,7 +101,7 @@
         },
 
         destroy: function () {
-            var self = this;
+	        let self = this;
             if (!self.options.whenClick) {
                 self.element.off('click');
             }
@@ -112,9 +110,10 @@
     };
 
     $.fn[pluginName] = function (option, value) {
-        var proccessFunction = function () {
-            var $this = $(this);
-            var data = $this.data(pluginName);
+	    let proccessFunction = function ()
+	    {
+		    let $this = $(this);
+		    let data = $this.data(pluginName);
 
             if (typeof  data != 'object' && typeof data != 'undefined') {
                 if (typeof $this.attr('href') == 'string') {
@@ -169,7 +168,8 @@
     $(document).modalWidget();
 })(jQuery);
 
-var ModalWidget = (function () {
+let ModalWidget = (function ()
+{
 
     var
         show = function (url, onClose) {
@@ -191,4 +191,4 @@ var ModalWidget = (function () {
     }
 })();
 
-var AsyncModal = ModalWidget;
+let AsyncModal = ModalWidget;

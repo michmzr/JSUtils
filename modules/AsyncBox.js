@@ -11,7 +11,8 @@
  * case b) $('#targetBox').asyncBox('http://....').
  *
  *
- * If you can load a new data to the b.ock you need to user plugin ReloadBox np. $('#targetBox').reloadBox({url: 'http:///'});
+ * If you can load a new data to the b.ock you need to user plugin ReloadBox np. $('#targetBox').reloadBox({url:
+ * 'http:///'});
  **
  * Copyrights by Michal Mazur <michmzr@gmail.com>
  *
@@ -22,11 +23,11 @@
 
     "use strict";
 
-    var pluginName = 'asyncBox';
+	let pluginName = 'asyncBox';
 
-    var EVENT_AJAX_SUCCESS    = "ajax-success";
-    var EVENT_AJAX_ERROR      = "ajax-error";
-    var EVENT_AJAX_FINISHED = "ajax-finished";
+	let EVENT_AJAX_SUCCESS = "ajax-success";
+	let EVENT_AJAX_ERROR = "ajax-error";
+	let EVENT_AJAX_FINISHED = "ajax-finished";
 
     function Plugin(element, options) {
 
@@ -46,7 +47,7 @@
     Plugin.prototype = {
 
         init: function () {
-            var self = this;
+	        let self = this;
             if (self.initialized) return;
             self._initDataArguments();
 
@@ -67,7 +68,7 @@
             $(this.element).trigger(event, eventData);
         },
         _triggerAjaxEvent: function (event, url, data, msg) {
-            var eventData = {};
+	        let eventData = {};
 
             eventData.url = url;
             eventData.msg = msg;
@@ -94,12 +95,12 @@
             this._triggerAjaxEvent(EVENT_AJAX_FINISHED, url, msg, data);
         },
         _initDataArguments: function () {
-            var self = this;
+	        let self = this;
 
             self.element.data('boxType', pluginName);
         },
         _initContentPlugins: function () {
-            var self = this;
+	        let self = this;
 
             self._initForms(self.element);
             self._initLinks(self.element);
@@ -112,7 +113,7 @@
             //  self.element.remoteAsyncBox(false);
         },
         _ajax: function (method, url, cache, data, onSuccess) {
-            var self = this;
+	        let self = this;
 
             self.element.html(self.options.loadingPlaceholder);
 
@@ -123,7 +124,7 @@
                 data: data,
 
                 beforeSend: function (xhr, setting) {
-                    var url = setting.url;
+	                let url = setting.url;
                     url = url.replace("&_=", "&requestKey=");
                     setting.url = url;
                 }
@@ -152,7 +153,7 @@
                 if ($.fn.mask) {
                     self.element.find('[data-mask]').each(function () {
 
-                        var $this = $(this),
+	                    let $this = $(this),
                             mask = $this.attr('data-mask') || 'error...', mask_placeholder = $this.attr('data-mask-placeholder') || 'X';
 
                         $this.mask(mask, {
@@ -175,22 +176,22 @@
         },
 
         _load: function () {
-            var self = this;
+	        let self = this;
 
             self._ajax(self.options.method, self.options.url, self.options.cache, self.options.data);
 
         },
         _formSubmitEvent: function (e) {
-            var self = this;
+	        let self = this;
 
-            var $form = $(e.currentTarget);
+	        let $form = $(e.currentTarget);
 
             if ($form.data('submiting')) {
             } else {
                 $form.data('submiting', true);
 
-                var objects = $form.serializeArray();
-                var action = $form.attr('action');
+	            let objects = $form.serializeArray();
+	            let action = $form.attr('action');
                 self.options.url = action;
 
                 self._ajax('POST', action, self.options.cache, objects, function () {
@@ -202,7 +203,7 @@
         },
 
         _initForms: function () {
-            var self = this;
+	        let self = this;
 
             if (self.options.actionAsync) {
                 self.element.find('form').each(function (idx, val) {
@@ -227,7 +228,7 @@
         },
 
         _initLinks: function () {
-            var self = this;
+	        let self = this;
 
             if (self.options.actionAsync) {
                 self.element.find('a').each(function (idx, val) {
@@ -243,9 +244,9 @@
         },
 
         _linkClickEvent: function (e) {
-            var self = this;
+	        let self = this;
 
-            var $link = $(e.currentTarget);
+	        let $link = $(e.currentTarget);
             self.element.html(self.options.loadingPlaceholder);
             self.options.url = $link.attr('href');
 
@@ -254,7 +255,7 @@
         },
 
         reload: function (options) {
-            var self = this;
+	        let self = this;
 
             if (typeof  options == 'undefined') {
                 self._load();
@@ -271,7 +272,7 @@
         },
 
         destroy: function () {
-            var self = this;
+	        let self = this;
             self.element.removeData(pluginName);
             self.element.empty();
         }
@@ -279,9 +280,10 @@
 
     $.fn[pluginName] = function (option, value)
     {
-        var proccessFunction = function () {
-            var $this = $(this);
-            var data = $this.data(pluginName);
+	    let proccessFunction = function ()
+	    {
+		    let $this = $(this);
+		    let data = $this.data(pluginName);
 
             if (typeof data == 'string') {
                 option = {url: data};
@@ -317,7 +319,8 @@
      * @param {string] defaults.url url to content
      * @param {string] defaults.cache Default is false
      * @param {string] defaults.data
-     * @param {boolean] defaults.init Default is true. Setting can be load from element attribut [data-async-box-no-load]. True - load asynchrous content from (@attr url) on init
+     * @param {boolean] defaults.init Default is true. Setting can be load from element attribut
+     *     [data-async-box-no-load]. True - load asynchrous content from (@attr url) on init
      * @param {string] defaults.actionAsync Default is true.
      * @param {string] defaults.errorMessage 'Error'
      * @param {string] defaults.loadingPlaceholder
@@ -348,7 +351,8 @@ $(document).ready(function () {
  * Dla zachowana zgodności z resztą starego kodu
  * @deprecated
  */
-var AsyncBox = (function () {
+let AsyncBox = (function ()
+{
 
     var
         load = function (box, url) {

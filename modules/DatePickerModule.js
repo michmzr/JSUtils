@@ -3,7 +3,7 @@
  *
  * Plugin is used for initialition Datepicker in input
  */
-var DatePickerModule = {
+let DatePickerModule = {
     /**
      * DatePickerModule conifguration for DatePicker
      */
@@ -14,11 +14,11 @@ var DatePickerModule = {
     init: function(elem, options) {
         console.info("Init DatePicker for element" + jqueryElemToString(elem));
 
-        var initOptions = {};
+	    let initOptions = {};
 
         $.extend(initOptions, this.defaults, options);
 
-        var startDate = $(elem).val();
+	    let startDate = $(elem).val();
         if(startDate)
         {
             initOptions.startDate = startDate;

@@ -6,10 +6,10 @@
  * @type {{init}}
  * @version 1.1
  */
-var ModulesInitController = (function ()
+let ModulesInitController = (function ()
 {
 
-	var settings = {
+	let settings = {
 		"triggerElemType": ".modulesInit",
 		"dataAttributes": {
 			"moduleName": "init-module",
@@ -21,21 +21,21 @@ var ModulesInitController = (function ()
 		}
 	};
 
-	var initModuleInElement = function (elem)
+	let initModuleInElement = function (elem)
 		{
 			console.info("init module for element " + jqueryElemToString(elem));
 
-			var s = settings;
-			var elemModuleName = $(elem).data(s.dataAttributes.moduleName);
+			let s = settings;
+			let elemModuleName = $(elem).data(s.dataAttributes.moduleName);
 
 			if (elemModuleName)
 			{
-				var module = s.modules[elemModuleName];
+				let module = s.modules[elemModuleName];
 
-				var initConfigData = $(elem).data(s.dataAttributes.config);
+				let initConfigData = $(elem).data(s.dataAttributes.config);
 
 				//parse module configuration
-				var initConfig = {};
+				let initConfig = {};
 
 				if (initConfigData)
 				{
@@ -70,7 +70,7 @@ var ModulesInitController = (function ()
 
 		init = function (el)
 		{
-			var s = settings;
+			let s = settings;
 
 			//   console.info("Init modules for elements with class " + s.triggerElemType);
 

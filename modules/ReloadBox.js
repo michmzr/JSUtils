@@ -5,7 +5,7 @@
 
     //"use strict";
 
-    var pluginName = 'reloadBox';
+	let pluginName = 'reloadBox';
 
     function Plugin(element, options) {
         this.element = $(element);
@@ -19,11 +19,11 @@
     Plugin.prototype = {
 
         init: function () {
-            var self = this;
-           var boxType =  self.element.data('boxType');
+	        let self = this;
+	        let boxType = self.element.data('boxType');
 
             if(typeof boxType == 'string'){
-                var box = self.element.data(boxType);
+	            let box = self.element.data(boxType);
                 if(typeof box == 'object'){
                     box.reload(self.options)
                 }
@@ -31,7 +31,7 @@
                 self.element.asyncBox(self.options)
             }
 
-            //      var data = self.element.data('asyncBox');
+	        //      let data = self.element.data('asyncBox');
 
        //     if(typeof data == 'object')
     //            data.reload();
@@ -39,7 +39,8 @@
     };
 
     $.fn[pluginName] = function (option) {
-        var proccessFunction = function () {
+	    let proccessFunction = function ()
+	    {
             new Plugin(this, option);
         };
 

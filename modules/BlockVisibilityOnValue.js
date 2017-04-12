@@ -1,14 +1,14 @@
 /**
  * Created by Michal Mazur on 2016-10-06.
  */
-var BlockVisibilityOnValue = (function ()
+const BlockVisibilityOnValue = (function ()
 {
 	//todo dostosowanie pod select,checkbox itp.
 	//todo potrzebne testy na checkboxach,polach radio itd.
 
-	var self = {};
+	let self = {};
 
-	var config = {
+	let config = {
 		"selector": {
 			"block": ".block-visibility-on-value"
 		},
@@ -18,14 +18,14 @@ var BlockVisibilityOnValue = (function ()
 	};
 
 	//value: $element,
-	var elements = {
+	let elements = {
 		"fieldName": null,
 		"fieldType": null,
 		"fieldsList": {},
 		"blocks": {}
 	};
 
-	var currentValue = null;
+	let currentValue = null;
 
 	function showBlock($el)
 	{
@@ -39,7 +39,7 @@ var BlockVisibilityOnValue = (function ()
 
 	function toggleBlockWithValue(value)
 	{
-		var blocksToHide = elements.blocks[currentValue];
+		let blocksToHide = elements.blocks[currentValue];
 
 		if (blocksToHide && blocksToHide.length > 0)
 		{
@@ -49,7 +49,7 @@ var BlockVisibilityOnValue = (function ()
 			})
 		}
 
-		var blocksToShow = elements.blocks[value];
+		let blocksToShow = elements.blocks[value];
 
 		if (blocksToShow && blocksToShow.length > 0)
 		{
@@ -64,9 +64,9 @@ var BlockVisibilityOnValue = (function ()
 
 	function onFieldOnChange(event)
 	{
-		var input = event.target;
+		let input = event.target;
 
-		var value = $(input).val();
+		let value = $(input).val();
 
 		toggleBlockWithValue(value);
 	}
@@ -75,12 +75,12 @@ var BlockVisibilityOnValue = (function ()
 	{
 		//Setting radio list
 		elements.fieldName = fieldSelector;
-		var attrsWithValues = $(fieldSelector);
+		let attrsWithValues = $(fieldSelector);
 
-		var attrTypeName = $(fieldSelector).get(0).nodeName.toLowerCase();
+		let attrTypeName = $(fieldSelector).get(0).nodeName.toLowerCase();
 		elements.fieldType = attrTypeName;
 
-		var onChangeEventName = "change";
+		let onChangeEventName = "change";
 
 		switch (attrTypeName)
 		{
@@ -89,7 +89,7 @@ var BlockVisibilityOnValue = (function ()
 
 				break;
 			case 'input':
-				var inputType = $(fieldSelector).attr('type');
+				let inputType = $(fieldSelector).attr('type');
 
 				switch (inputType)
 				{
@@ -128,7 +128,7 @@ var BlockVisibilityOnValue = (function ()
 		//Setting block visibility depended from current radio button value
 		$(document.body).find(config.selector.block).each(function (index, $block)
 		{
-			var relValue = $($block).attr(config.dataAttrs.showOnValue);
+			let relValue = $($block).attr(config.dataAttrs.showOnValue);
 
 			if (!elements.blocks.hasOwnProperty(relValue))
 				elements.blocks[relValue] = [];

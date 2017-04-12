@@ -12,9 +12,9 @@
 
     //"use strict";
 
-    var pluginName = 'remoteAsyncBox';
+	let pluginName = 'remoteAsyncBox';
 
-	var config = {
+	let config = {
 		'dataAttributes': {
 			"initUrl": "remoteAsyncBoxInitUrl" //data-remote-async-box-init-url
 		}
@@ -32,14 +32,14 @@
     Plugin.prototype = {
 
         init: function () {
-            var self = this;
+	        let self = this;
             if (self.initialized) return;
             self._initDataArguments();
 
             self._load();
             self.initialized = true;
 
-	        var initUrl = $(self.element).data(config.dataAttributes.initUrl);
+	        let initUrl = $(self.element).data(config.dataAttributes.initUrl);
             if (initUrl != undefined)
             {
                 this.loadContent(initUrl);
@@ -47,13 +47,13 @@
         },
 
         _initDataArguments: function () {
-            var self = this;
+	        let self = this;
 
             self.element.data('boxType', pluginName);
         },
 
         _load: function () {
-            var self = this;
+	        let self = this;
 
             self._initForms();
             self._initLinks();
@@ -62,15 +62,15 @@
         },
 
         _formSubmitEvent: function (e) {
-            var self = this;
-            var $form = $(e.currentTarget);
+	        let self = this;
+	        let $form = $(e.currentTarget);
 
             if (typeof $form.data('submiting') == 'boolean') {
             } else {
                 $form.data('submiting', true);
 
-                var objects = $form.serializeArray();
-                var action = $form.attr('action');
+	            let objects = $form.serializeArray();
+	            let action = $form.attr('action');
                     $(self.options.target).reloadBox({
                         url: action,
                         data: objects,
@@ -84,7 +84,7 @@
         },
 
         _initForms: function () {
-            var self = this;
+	        let self = this;
             if (self.options.actionAsync) {
                 self.element.find('form').each(function (idx, val) {
                    if (typeof $(val).data('async') == 'undefined') {
@@ -99,7 +99,7 @@
         },
 
         _initLinks: function () {
-            var self = this;
+	        let self = this;
 
             if (self.options.actionAsync) {
                 self.element.find('a').each(function (idx, val) {
@@ -115,9 +115,9 @@
         },
 
         _linkClickEvent: function (e) {
-            var self = this;
+	        let self = this;
 
-            var $link = $(e.currentTarget);
+	        let $link = $(e.currentTarget);
             self.element.html(self.options.loadingPlaceholder);
 
             self.loadContent($link.attr('href'));
@@ -126,7 +126,7 @@
         },
 
         loadContent: function(url){
-	        var self = this;
+	        let self = this;
 
             $(self.options.target).reloadBox({
                 url: url,
@@ -139,17 +139,17 @@
         },
 
         destroy: function () {
-            var self = this;
+	        let self = this;
             self.element.removeData(pluginName);
         }
     };
 
     $.fn[pluginName] = function (option, value)
     {
-        var proccessFunction = function ()
+	    let proccessFunction = function ()
         {
-            var $this = $(this);
-            var data = $this.data(pluginName);
+	        let $this = $(this);
+	        let data = $this.data(pluginName);
 
             if (typeof data == 'string') {
                 option = {target: data};
